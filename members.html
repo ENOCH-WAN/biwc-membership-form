@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Directory - Baptist International Worship Centre (BIWC-Kwabenya)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="{{ url_for('index') }}" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Baptist International Worship Centre</h1>
+                        <p>BIWC-Kwabenya Member Directory</p>
+                    </div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('register') }}">Join Us</a></li>
+                    <li><a href="{{ url_for('members') }}" class="active">Members</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>BIWC-Kwabenya Member Directory</h2>
+                <p>Our community of dedicated believers</p>
+            </div>
+            
+            {% if members %}
+            <div class="members-table-container">
+                <table class="members-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Join Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                        <tr>
+                            <td class="member-id">#{{ member[0] }}</td>
+                            <td class="member-name">{{ member[1] }} {{ member[2] }}</td>
+                            <td>{{ member[3] }}</td>
+                            <td>{{ member[4] if member[4] else 'N/A' }}</td>
+                            <td>{{ member[8] }}</td>
+                            <td>{{ member[19].split()[0] if member[19] else 'N/A' }}</td>
+                            <td>
+                                <span class="status-badge {% if member[15] == 'Mature Christian' %}status-mature{% else %}status-other{% endif %}">
+                                    {{ member[15] }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem; color: var(--text-light);">
+                <p>Total Members: {{ members|length }}</p>
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 4rem; background-color: white; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                <i class="fas fa-users" style="font-size: 4rem; color: var(--text-light); margin-bottom: 1rem;"></i>
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">No Members Yet</h3>
+                <p style="margin-bottom: 2rem; color: var(--text-light);">Be the first to join our church family!</p>
+                <a href="{{ url_for('register') }}" class="cta-button">Become Our First Member</a>
+            </div>
+            {% endif %}
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="{{ url_for('register') }}" class="cta-button">
+                    <i class="fas fa-user-plus"></i> Add New Member
+                </a>
+                <a href="{{ url_for('index') }}" class="cta-button" style="margin-left: 1rem; background: linear-gradient(135deg, var(--accent-color), #ea580c);">
+                    <i class="fas fa-home"></i> Return to Home
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Baptist International Worship Centre</h3>
+                    <p>Kwabenya - Pokuase Street<br>
+                    Opposite Puma Filling Station<br>
+                    Accra, Ghana</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Directory</h3>
+                    <p><i class="fas fa-phone"></i> 233 547265306</p>
+                    <p><i class="fas fa-envelope"></i> members@biwckwabenyas.org</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Member Resources</h3>
+                    <p><a href="{{ url_for('index') }}" style="color: white; text-decoration: none;">Church Calendar</a></p>
+                    <p><a href="{{ url_for('register') }}" style="color: white; text-decoration: none;">Update Information</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Baptist International Worship Centre (BIWC-Kwabenya). All rights reserved. | Member directory is for internal use only.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
