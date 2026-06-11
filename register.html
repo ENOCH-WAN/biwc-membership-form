@@ -257,15 +257,6 @@
                 }
             });
             
-            // Validate email format
-            const emailField = document.getElementById('email');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (emailField.value && !emailRegex.test(emailField.value)) {
-                emailField.style.borderColor = '#e74c3c';
-                alert('Please enter a valid email address.');
-                isValid = false;
-            }
-            
             if (!isValid) {
                 alert('Please fill in all required fields.');
             }
